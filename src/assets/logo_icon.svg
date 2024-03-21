@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="140.219" height="91.295" viewBox="0 0 140.219 91.295">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.046" y1="0.05" x2="0.887" y2="0.842" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#0087d1"/>
+      <stop offset="1" stop-color="#00283d"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.069" y1="0.072" x2="0.903" y2="0.814" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="0.113" y1="0.902" x2="0.902" y2="0.225" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-4" x1="0.236" y1="0.761" x2="0.81" y2="0.362" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-5" x1="0.077" y1="0.069" x2="0.978" y2="0.782" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-6" x1="0.5" y1="0" x2="0.5" y2="1" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Group_1" data-name="Group 1" transform="translate(-221.366 -12.705)">
+    <path id="Path_16" data-name="Path 16" d="M1422.351,316.294s78.206-5.2,65.594,26.571C1474.837,375.882,1422.351,316.294,1422.351,316.294Z" transform="translate(-1220.93 -125.237) rotate(-5)" stroke="#598cc7" stroke-width="2" fill="url(#linear-gradient)"/>
+    <path id="Path_15" data-name="Path 15" d="M1422.351,316.294s78.206-5.2,65.594,26.571C1474.837,375.882,1422.351,316.294,1422.351,316.294Z" transform="translate(-826.555 -952.881) rotate(30)" stroke="#598cc7" stroke-width="2" fill="url(#linear-gradient-2)"/>
+    <path id="Path_12" data-name="Path 12" d="M0,36.538s78.206,5.2,65.594-26.571C52.486-23.05,0,36.538,0,36.538Z" transform="matrix(-0.996, -0.087, 0.087, -0.996, 356.192, 102.286)" stroke="#598cc7" stroke-width="2" fill="url(#linear-gradient-3)"/>
+    <path id="Path_13" data-name="Path 13" d="M0,36.539s78.206,5.2,65.594-26.571C52.486-23.05,0,36.539,0,36.539Z" transform="translate(354.247 63.856) rotate(150)" stroke="#598cc7" stroke-width="2" fill="url(#linear-gradient-4)"/>
+    <path id="Path_14" data-name="Path 14" d="M1422.351,316.294s78.206-5.2,65.594,26.571C1474.837,375.882,1422.351,316.294,1422.351,316.294Z" transform="matrix(0.375, 0.927, -0.927, 0.375, 51.83, -1422.087)" stroke="#598cc7" stroke-width="2" fill="url(#linear-gradient-5)"/>
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="12" cy="12" r="12" transform="translate(280.106 79)" stroke="#598cc7" stroke-width="2" fill="url(#linear-gradient-6)"/>
+  </g>
+</svg>

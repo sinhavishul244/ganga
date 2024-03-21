@@ -2,19 +2,44 @@ import React, { useRef, useState, useEffect } from 'react'
 import axios from '../api/axios'
 import useAuth from '../hooks/useAuth'
 import { LOGIN_URL, AUTH_URL } from '../secrets/links'
+import { Link, useNavigate } from 'react-router-dom'
+import RiverBg from '../components/riverBg'
+import logo from '../assets/logo2.svg'
+import { Slide, toast } from 'react-toastify';
 
 const Login = () => {
 
-    const { setAuth, auth } = useAuth();
+    const { setAuth, auth, isRegistered, setIsRegistered, email, setEmail, setName, name } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
-
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
+    const navigate = useNavigate();
+
+    const toastOptions = {
+        position: "top-left",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+        type: 'success'
+    }
+
     useEffect(() => {
-        userRef.current.focus();
+        // userRef.current.focus();
+        if (isRegistered) {
+            toast(`Thanks for Signup ${name} !\n Please Login now.`, toastOptions);
+            setIsRegistered(false);
+            setUser(email);
+            setEmail("");
+            setName("");
+        }
     }, [])
 
     useEffect(() => {
@@ -23,65 +48,81 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const id = toast.loading(`Signing you in ...`, toastOptions);
         try {
             const response = await axios.post(`${AUTH_URL}/${LOGIN_URL}`,
                 JSON.stringify({ username: user, password }),
                 {
                     headers: { 'Content-Type': 'application/json' },
-                    // withCredentials: true
-                }
+                    withCredentials: true
+                },
             );
             console.log(response?.data);
             const accessToken = response?.data?.token;
             const roles = response?.data?.roles;
-            setAuth({ user, password, roles, accessToken });
+            await setAuth({ user, roles, accessToken });
+            localStorage.setItem('auth', JSON.stringify({ user, roles, accessToken }));
+            toast.update(id, { type: 'success', render: `Sign In Successful`, isLoading: false, autoClose: 5000 });
             setUser('');
             setPassword('');
-            console.log(auth);
+            navigate("/");
+
         } catch (err) {
             if (!err?.response) {
-                setErrMsg('No Server Response');
+                toast.update(id, { render: "No response from server !", type: "error", isLoading: false, autoClose: 3000 });
             } else {
                 console.log(err?.response?.data)
                 setErrMsg(err?.response?.data?.message || "sign up error");
+                toast.update(id, { render: err?.response?.data?.message || "sign up error", type: "error", isLoading: false, autoClose: 3000 });
             }
         }
     }
 
     return (
         (
-            <section>
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}>{errMsg}</p>
-                <h1>Sign In</h1>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setUser(e.target.value)}
-                        value={user}
-                        required
-                    />
+            <>
+                <RiverBg />
+                <div className="login-container">
+                    <div className="logo">
+                        <img src={logo} />
+                    </div>
+                    <section className='form-box'>
+                        <div className="form-box-main-container">
 
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                        required
-                    />
-                    <button>Sign In</button>
-                </form>
-                <p>
-                    Need an Account?<br />
-                    <span className="line">
-                        <a href="#">Sign Up</a>
-                    </span>
-                </p>
-            </section>
+                            <h1>Sign In</h1>
+                            <form onSubmit={handleSubmit} className='main-form'>
+                                <label htmlFor="username">Username</label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    ref={userRef}
+                                    autoComplete="off"
+                                    onChange={(e) => setUser(e.target.value)}
+                                    value={user}
+                                    placeholder='enter your email'
+                                    required
+                                />
+
+                                <label htmlFor="password">Password</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={password}
+                                    required
+                                    placeholder='enter password'
+                                />
+                                <button className='button-primary top-margin' type='submit'>Sign In</button>
+                                <p>
+                                    Need an account? <Link to={"/register"}>Register</Link>
+                                </p>
+                                {/* <button className='button-secondary' onClick={() => { navigate("/register") }}>Register</button> */}
+                            </form>
+
+                        </div>
+                    </section>
+                </div>
+            </>
         )
     )
 }

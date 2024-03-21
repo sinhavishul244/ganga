@@ -1,0 +1,59 @@
+.unauthorized-container {
+    background-color: rgba(5, 34, 51, 0.5);
+    backdrop-filter: blur(16px);
+    width: 44vmax;
+    aspect-ratio: 1;
+    // height: 40vmax;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    h1 {
+        font-family: $heading-font;
+        font-size: 3.5rem;
+        color: $primary-white;
+        margin-top: -0.5rem;
+    }
+
+    .unauth-logo {
+        width: 25%;
+        opacity: 0.7;
+
+    }
+
+    p {
+        color: $primary-white-80;
+        margin-top: -1rem;
+        font-size: 1rem;
+    }
+
+    .unauth-cop {
+        width: 50%;
+        animation: cop-car 2s alternate infinite;
+    }
+
+    button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    @keyframes cop-car {
+        0% {
+            transform: rotate(-5deg);
+        }
+
+        100% {
+            transform: rotate(5deg);
+        }
+    }
+
+}

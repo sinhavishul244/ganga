@@ -1,13 +1,23 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 const RequireAuth = ({ allowedRoles }) => {
     const { auth } = useAuth();
     const location = useLocation();
 
+    useEffect(() => {
+        console.log(auth);
+    }, [auth])
+
+
     return (
-        // TODO require auth changes required according to the data coming from backend
-        auth?.roles?.find(role => allowedRoles?.includes(role))
+        auth?.roles?.find(role => {
+            console.log("roles check")
+            console.log(role?.roleId)
+            console.log(allowedRoles[0])
+            return allowedRoles?.includes(role.roleId)
+        })
             ? <Outlet />
             : auth?.user
                 ? <Navigate to="/unauthorized" state={{ from: location }} replace />

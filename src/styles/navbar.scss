@@ -1,0 +1,27 @@
+.nav {
+    // border: 2px solid white;
+    color: $primary-white;
+    background-color: $primary-blue;
+
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        gap: 1rem;
+
+
+        li {
+            color: $primary-white;
+            padding: 1rem 2rem;
+            // border: 2px solid red;   
+
+            &:hover {
+                background-color: $primary-blue-hover;
+                cursor: pointer;
+            }
+        }
+    }
+
+
+}
