@@ -1,15 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react'
 import axios from '../api/axios'
 import useAuth from '../hooks/useAuth'
-import { LOGIN_URL, AUTH_URL } from '../secrets/links'
+import { LOGIN_URL, AUTH_URL, CURRENT_USER_URL } from '../secrets/links'
 import { Link, useNavigate } from 'react-router-dom'
 import RiverBg from '../components/riverBg'
 import logo from '../assets/logo2.svg'
 import { Slide, toast } from 'react-toastify';
+import { toastOptions } from '../configs/configs'
 
 const Login = () => {
 
-    const { setAuth, auth, isRegistered, setIsRegistered, email, setEmail, setName, name } = useAuth();
+    const { setAuth, auth, isRegistered, setIsRegistered, email, setEmail, setName, name, setCurrentUser } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
     const [user, setUser] = useState('');
@@ -18,23 +19,11 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const toastOptions = {
-        position: "top-left",
-        autoClose: 6000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
-        type: 'success'
-    }
+
 
     useEffect(() => {
-        // userRef.current.focus();
         if (isRegistered) {
-            toast(`Thanks for Signup ${name} !\n Please Login now.`, toastOptions);
+            toast.success(`Thanks for Signup ${name} !\n Please Login now.`, { ...toastOptions, autoClose: 6000 });
             setIsRegistered(false);
             setUser(email);
             setEmail("");
@@ -45,6 +34,17 @@ const Login = () => {
     useEffect(() => {
         setErrMsg('');
     }, [user, password])
+
+
+    useEffect(() => {
+        if (auth) {
+            toast.warn("You are already Logged in !", { ...toastOptions, toastId: "loggedIn" })
+            navigate("/");
+        }
+    }, [])
+
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,18 +57,26 @@ const Login = () => {
                     withCredentials: true
                 },
             );
+
             console.log(response?.data);
             const accessToken = response?.data?.token;
             const roles = response?.data?.roles;
             await setAuth({ user, roles, accessToken });
+
+
             localStorage.setItem('auth', JSON.stringify({ user, roles, accessToken }));
-            toast.update(id, { type: 'success', render: `Sign In Successful`, isLoading: false, autoClose: 5000 });
+            toast.update(id, { type: 'success', render: `Sign In Successful`, isLoading: false, autoClose: 1000 });
+
+
+
             setUser('');
             setPassword('');
             navigate("/");
 
+
         } catch (err) {
             if (!err?.response) {
+                console.log(err);
                 toast.update(id, { render: "No response from server !", type: "error", isLoading: false, autoClose: 3000 });
             } else {
                 console.log(err?.response?.data)

@@ -1,10 +1,11 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 const AuthContext = createContext({});
 
 
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
     // states for currently registered users
     const [isRegistered, setIsRegistered] = useState(false);
@@ -14,10 +15,11 @@ export const AuthProvider = ({ children }) => {
     const logoutHandler = () => {
         setAuth(null);
         localStorage.removeItem('auth');
+        localStorage.removeItem('currentUser');
     }
 
     return (
-        <AuthContext.Provider value={{ auth, setAuth, isRegistered, setIsRegistered, email, setEmail, name, setName, logoutHandler }}>
+        <AuthContext.Provider value={{ auth, setAuth, isRegistered, setIsRegistered, email, setEmail, name, setName, logoutHandler, currentUser, setCurrentUser }}>
             {children}
         </AuthContext.Provider>
     )

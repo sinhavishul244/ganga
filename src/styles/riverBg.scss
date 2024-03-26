@@ -32,9 +32,10 @@
 
 .landscape {
     height: 100vh;
-    width: 100vw;
+    width: 100%;
+    position: fixed;
     background-image: linear-gradient(var(--v1), var(--s1), var(--v1));
-    position: absolute;
+    // position: absolute;
     top: 0;
     left: 0;
     z-index: -1;

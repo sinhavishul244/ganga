@@ -1,24 +1,31 @@
+import { ThemeProvider } from '@mui/material/styles';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { AuthProvider } from './context/AuthProvider';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import LoadingScreen from './components/LoadingScreen';
+import App from './App';
+import { theme } from './configs/MUI_Theme';
+import { AuthProvider } from './context/AuthProvider';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
+import { ShoppingProvider } from './context/ShoppingProvider';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <AuthProvider>
-    <ToastContainer />
-    <Router>
-      <Routes>
-        <Route path='/*' element={<App />} />
-      </Routes>
-    </Router>
+    <ShoppingProvider>
+      <ThemeProvider theme={theme}>
+        <ToastContainer />
+        <Router>
+          <Routes>
+            <Route path='/*' element={<App />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </ShoppingProvider>
   </AuthProvider>
   // </React.StrictMode>
 );

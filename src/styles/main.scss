@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 
+$primary-blue-80: #0088d199;
 $primary-blue: #0087D1;
 $primary-blue-hover: #006ba4;
 $heading-font: "Nunito", sans-serif;
@@ -16,6 +17,14 @@ $primary-white-80: hsla(200, 27%, 98%, 0.90);
 
 * {
     color: $primary-dark;
+    // border: 2px solid green;
+    // overflow-x: hidden;
+
+}
+
+body {
+    color: $primary-white;
+    background-origin: $primary-white;
 }
 
 .top-margin {
@@ -36,14 +45,12 @@ a {
 // }
 
 table {
-
-    width: 80vw;
-
+    width: 100%;
     border-collapse: collapse;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border-radius: 1rem;
-    table-layout: fixed;
+    // border-radius: 1rem;
+    // table-layout: fixed;
 }
 
 th,
@@ -78,7 +85,7 @@ tbody {
     }
 
     td {
-        position: relative;
+        // position: relative;
 
         // &:hover {
         //     &:before {
@@ -93,4 +100,12 @@ tbody {
         //     }
         // }
     }
+}
+
+.logo {
+    height: 45%;
+}
+
+.nav-logo {
+    cursor: pointer;
 }

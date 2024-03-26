@@ -6,6 +6,7 @@ import RiverBg from '../components/riverBg';
 import { AUTH_URL, REGISTER_URL } from '../secrets/links';
 import { Slide, toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
+import { toastOptions } from '../configs/configs';
 
 const USER_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -38,31 +39,6 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-    const toastWarnConfig = {
-        position: "top-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
-        toastId: "registerPage"
-    };
-
-    const toastIsLoadingConfig = {
-        position: "top-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
-    };
-
     useEffect(() => {
         nameRef.current.focus();
     }, [])
@@ -82,43 +58,43 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (name === "") {
-            toast.warn("Please enter your name !", toastWarnConfig);
+            toast.warn("Please enter your name !", { ...toastOptions, toastId: "register" });
             nameRef.current.focus();
             return;
         }
         if (email === "") {
-            toast.warn("Please enter your email !", toastWarnConfig);
+            toast.warn("Please enter your email !", { ...toastOptions, toastId: "register" });
             userRef.current.focus();
             return;
         }
         const v1 = USER_REGEX.test(email);
         if (!v1) {
-            toast.error("Enter a vaild email !", toastWarnConfig);
+            toast.error("Enter a vaild email !", { ...toastOptions, toastId: "register" });
             userRef.current.focus();
             return;
         }
 
         if (password === "") {
-            toast.warn("Please enter your password !", toastWarnConfig);
+            toast.warn("Please enter your password !", { ...toastOptions, toastId: "register" });
             passRef.current.focus();
             return;
         }
 
         const v2 = PASSWORD_REGEX.test(password);
         if (!v2) {
-            toast.warn("Password must include uppercase and lowercase letters, a number and a special character!", toastWarnConfig);
+            toast.warn("Password must include uppercase and lowercase letters, a number and a special character!", { ...toastOptions, toastId: "register" });
             passRef.current.focus();
             return;
         }
 
 
         if (password !== matchPassword) {
-            toast.warn("Passwords must match !", toastWarnConfig);
+            toast.warn("Passwords must match !", { ...toastOptions, toastId: "register" });
             confirmPassRef.current.focus();
             return;
         }
 
-        const id = toast.loading("Signing up...", toastIsLoadingConfig);
+        const id = toast.loading("Signing up...", toastOptions);
         try {
             const response = await axios.post(`${AUTH_URL}/${REGISTER_URL}`,
                 JSON.stringify({ userEmail: email, userPassword: password, userFullName: name }),
@@ -252,7 +228,6 @@ const Register = () => {
                             </p>
                             {/* <button className='button-secondary' onClick={() => { navigate("/login") }}>Login</button> */}
                         </form>
-
 
                     </div>
                 </section>

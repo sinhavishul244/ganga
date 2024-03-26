@@ -12,9 +12,7 @@ const Admin = () => {
     return (
         <>
             <RiverBg />
-            <h1>Admin</h1>
             <AdminNav />
-            <button className='button-primary' onClick={logoutHandler}>Logout</button>
             <Outlet />
         </>
     )
